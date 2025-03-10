@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
-import { useShop } from '@/context/ShopContext';
-import Image from 'next/image';
+import { Suspense } from 'react';
+import DrinkCard from './DrinkCard';
 
 // Define the type for the drinks
 interface Drink {
@@ -12,14 +12,11 @@ interface Drink {
 // Fetch data directly on the server
 async function getDrinks(): Promise<Drink[]> {
   const res = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=lemon', {
-    cache: 'no-store', // Ensure fresh data on each request
+    cache: 'no-store', // Always get fresh data
   });
   const data = await res.json();
   return data.drinks || [];
 }
-
-// Since we need client interaction (addToCart), we split the interactive part into a Client Component
-import DrinkCard from './DrinkCard';
 
 export default async function ShopPage() {
   const drinks = await getDrinks();
