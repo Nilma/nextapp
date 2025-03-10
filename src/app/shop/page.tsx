@@ -2,9 +2,17 @@
 import Navbar from '@/components/Navbar';
 import { useShop } from '@/context/ShopContext';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
+
+interface Drink {
+    idDrink: string;
+    strDrink: string;
+    strDrinkThumb: string;
+  }
 
 export default function ShopPage() {
-  const [drinks, setDrinks] = useState<any[]>([]);
+  //const [drinks, setDrinks] = useState<any[]>([]);
+  const [drinks, setDrinks] = useState<Drink[]>([]);
   const { addToCart } = useShop();
 
   useEffect(() => {
@@ -22,7 +30,13 @@ export default function ShopPage() {
           {drinks.map((drink) => (
             <div key={drink.idDrink} className="border p-4 rounded">
               <h3 className="font-bold">{drink.strDrink}</h3>
-              <img src={drink.strDrinkThumb} alt={drink.strDrink} className="w-full h-32 object-cover my-2 rounded" />
+              <Image
+                    src={drink.strDrinkThumb}
+                    alt={drink.strDrink}
+                    width={300}
+                    height={300}
+                    className="w-full h-32 object-cover my-2 rounded"
+                 />
               <button
                 className="bg-blue-500 text-white px-4 py-2 rounded"
                 onClick={() =>
