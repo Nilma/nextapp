@@ -1,5 +1,4 @@
 import Navbar from '@/components/Navbar';
-import { Suspense } from 'react';
 import DrinkCard from './DrinkCard';
 
 // Define the type for the drinks
@@ -12,7 +11,7 @@ interface Drink {
 // Fetch data directly on the server
 async function getDrinks(): Promise<Drink[]> {
   const res = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=lemon', {
-    cache: 'no-store', // Always get fresh data
+    cache: 'no-store', // Ensure fresh data on each request
   });
   const data = await res.json();
   return data.drinks || [];
